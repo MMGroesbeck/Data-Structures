@@ -46,6 +46,7 @@ class Stack:
             while current.next:
                 length += 1
                 current = current.next
+        self.size = length
         return length
     def push(self, value):
         self.storage.add_to_tail(value)

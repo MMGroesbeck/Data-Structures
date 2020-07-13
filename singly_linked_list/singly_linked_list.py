@@ -35,14 +35,16 @@ class LinkedList:
         if self.head is None and self.tail is None:
             return
         if self.head is self.tail:
-            val = self.head.get_value
-            self.head, self.tail = None
+            val = self.head.get_value()
+            self.head = None
+            self.tail = None
             return val
+        val = self.tail.get_value()
         current = self.head
         while current.get_next() is not self.tail:
-            current = current.get_next()
-        val = self.tail.get_value() 
+            current = current.get_next() 
         self.tail = current
+        self.tail.set_next(None)
         return val
     def contains(self, value):
         if not self.head:

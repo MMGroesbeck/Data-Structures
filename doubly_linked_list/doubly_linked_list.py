@@ -27,7 +27,10 @@ class DoublyLinkedList:
     the old head node's previous pointer accordingly.
     """
     def add_to_head(self, value):
-        pass
+        new_node = ListNode(value, None, self.head)
+        self.head.prev = new_node
+        self.head = new_node
+        self.length += 1
         
     """
     Removes the List's current head node, making the
@@ -35,7 +38,14 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_head(self):
-        pass
+        val = self.head.value
+        if self.head.next:
+            self.head = self.head.next
+            self.head.prev = None
+        else:
+            self.head = None
+        self.length -= 1
+        return val
             
     """
     Wraps the given value in a ListNode and inserts it 
@@ -43,7 +53,10 @@ class DoublyLinkedList:
     the old tail node's next pointer accordingly.
     """
     def add_to_tail(self, value):
-        pass
+        self.tail = ListNode(value, self.tail, None)
+        if self.tail.prev:
+            self.tail.prev.next = self.tail
+        self.length += 1
             
     """
     Removes the List's current tail node, making the 
@@ -51,14 +64,30 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_tail(self):
-        pass
+        if self.length == 0:
+            return None
+        else:
+            val = self.tail.value
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        else:
+            self.tail = self.tail.prev
+            self.tail.next = None
+        self.length -= 1
+        return val
             
     """
     Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        pass
+        if node.prev:
+            node.prev.next = node.next
+        if node.next:
+            node.next.prev = node.prev
+        self.length -= 1
+        self.add_to_head(node.value)
         
     """
     Removes the input node from its current spot in the 
