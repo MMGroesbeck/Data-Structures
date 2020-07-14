@@ -1,3 +1,7 @@
+import sys
+sys.path.append('C:\\Users\\mgroe\\Desktop\\lambdaGit\\DS\\week 2\\Data-Structures\\doubly_linked_list')
+from doubly_linked_list import DoublyLinkedList, ListNode
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +11,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.current = 0
+        self.lru_list = DoublyLinkedList()
+        self.lru_dict = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +24,17 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if self.lru_list.head is None:
+            return None
+        else:
+            this_node = self.lru_list.head
+            while this_node.next is not None and this_node.value != key:
+                this_node = this_node.next
+            if this_node.value == key:
+                self.lru_list.move_to_end(this_node)
+                return self.lru_dict[key]
+            else:
+                return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +47,15 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        self.lru_dict[key] = value
+        this_node = self.lru_list.head
+        if this_node:
+            while this_node.next is not None and this_node.value != key:
+                this_node = this_node.next
+            if this_node.value == key:
+                self.lru_list.move_to_end(this_node)
+                return
+        self.lru_list.add_to_tail(key)
+        if self.lru_list.length > self.limit:
+            del self.lru_dict[self.lru_list.head.value]
+            self.lru_list.remove_from_head()
