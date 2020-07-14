@@ -1,5 +1,5 @@
 import sys
-sys.path.append('C:\\Users\\mgroe\\Desktop\\lambdaGit\\DS\\week 2\\Data-Structures\\doubly_linked_list')
+sys.path.append('C:\\Users\\mgroe\\Desktop\\lambdaGit\\DS\\week 2\\Data-Structures\\lru_cache')
 from doubly_linked_list import DoublyLinkedList, ListNode
 
 class LRUCache:
@@ -27,12 +27,9 @@ class LRUCache:
         if self.lru_list.head is None:
             return None
         else:
-            this_node = self.lru_list.head
-            while this_node.next is not None and this_node.value != key:
-                this_node = this_node.next
-            if this_node.value == key:
-                self.lru_list.move_to_end(this_node)
-                return self.lru_dict[key]
+            if key in self.lru_dict:
+                self.lru_list.move_to_end(self.lru_dict[key])
+                return self.lru_dict[key].value2
             else:
                 return None
 
@@ -47,15 +44,14 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        self.lru_dict[key] = value
-        this_node = self.lru_list.head
-        if this_node:
-            while this_node.next is not None and this_node.value != key:
-                this_node = this_node.next
-            if this_node.value == key:
-                self.lru_list.move_to_end(this_node)
-                return
-        self.lru_list.add_to_tail(key)
-        if self.lru_list.length > self.limit:
-            del self.lru_dict[self.lru_list.head.value]
-            self.lru_list.remove_from_head()
+        if key not in self.lru_dict:
+            new_node = self.lru_list.add_to_tail(key)
+            new_node.value2 = value
+            self.lru_dict[key] = new_node
+            if self.lru_list.length > self.limit:
+                del self.lru_dict[self.lru_list.head.value]
+                self.lru_list.remove_from_head()
+        else:
+            this_node = self.lru_dict[key]
+            this_node.value2 = value
+            self.lru_list.move_to_end(this_node)
