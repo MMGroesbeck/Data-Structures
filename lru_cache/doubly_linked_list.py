@@ -3,10 +3,11 @@ Each ListNode holds a reference to its previous node
 as well as its next node in the List.
 """
 class ListNode:
-    def __init__(self, value, prev=None, next=None):
+    def __init__(self, value, prev=None, next=None, value2=None):
         self.prev = prev
         self.value = value
         self.next = next
+        self.value2 = value2
             
 """
 Our doubly-linked list class. It holds references to 
@@ -34,6 +35,7 @@ class DoublyLinkedList:
             self.tail = new_node
         self.head = new_node
         self.length += 1
+        return new_node
         
     """
     Removes the List's current head node, making the
@@ -67,6 +69,7 @@ class DoublyLinkedList:
             self.head = new_node
             self.tail = new_node
         self.length += 1
+        return new_node
             
     """
     Removes the List's current tail node, making the 
@@ -92,30 +95,32 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        if node.prev:
-            node.prev.next = node.next
-        if node.next:
-            node.next.prev = node.prev
+        if self.head == node:
+            return
         else:
-            self.tail = node.prev
-        self.length -= 1
-        self.add_to_head(node.value)
+            node.prev.next = node.next
+            if node.next:
+                node.next.prev = node.prev
+            else:
+                self.tail = node.prev
+            node.next = self.head
+            self.head = node
         
     """
     Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        print(f"Val1: {node.value}")
-        if node.prev:
-            node.prev.next = node.next
+        if node.next == None:
+            return
         else:
-            self.head = node.next
-        if node.next:
             node.next.prev = node.prev
-        self.length -= 1
-        print(f"Val2: {node.value}")
-        self.add_to_tail(node.value)
+            if node.prev:
+                node.prev.next = node.next
+            else:
+                self.head = node.next
+            node.prev = self.tail
+            self.tail = node
 
     """
     Deletes the input node from the List, preserving the 
