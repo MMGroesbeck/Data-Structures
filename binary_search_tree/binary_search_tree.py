@@ -28,15 +28,7 @@ class Queue:
         self.storage = LinkedList(init_node)
     
     def __len__(self):
-        length = 0
-        if self.storage.head:
-            length = 1
-            current = self.storage.head
-            while current.next:
-                length += 1
-                current = current.next
-        self.size = length
-        return length
+        return self.size
 
     def enqueue(self, value):
         self.storage.add_to_tail(value)
@@ -56,15 +48,7 @@ class Stack:
             self.size = 0
         self.storage = LinkedList(init_node)
     def __len__(self):
-        length = 0
-        if self.storage.head:
-            length = 1
-            current = self.storage.head
-            while current.next:
-                length += 1
-                current = current.next
-        self.size = length
-        return length
+        return self.size
     def push(self, value):
         self.storage.add_to_tail(value)
         self.size += 1

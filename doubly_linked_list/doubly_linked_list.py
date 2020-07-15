@@ -3,10 +3,10 @@ Each ListNode holds a reference to its previous node
 as well as its next node in the List.
 """
 class ListNode:
-    def __init__(self, value, prev=None, next=None):
+    def __init__(self, value, prev=None, next_node=None):
         self.prev = prev
         self.value = value
-        self.next = next
+        self.next = next_node
             
 """
 Our doubly-linked list class. It holds references to 
