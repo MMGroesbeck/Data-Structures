@@ -50,6 +50,9 @@ class Stack:
         return length
     def push(self, value):
         self.storage.add_to_tail(value)
+        self.size += 1
     def pop(self):
         val = self.storage.remove_tail()
+        if val:
+            self.size -= 1
         return val

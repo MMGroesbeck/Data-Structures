@@ -9,9 +9,11 @@ class Node:
     def set_next(self, new_next):
         self.next = new_next
 class LinkedList:
-    def __init__(self, init_node=None):
-        self.head = init_node
-        self.tail = init_node
+    def __init__(self, init_val=None):
+        if init_val:
+            init_val = Node(init_val)
+        self.head = init_val
+        self.tail = init_val
     def add_to_tail(self, value):
         new_node = Node(value)
         if self.head is None and self.tail is None:
