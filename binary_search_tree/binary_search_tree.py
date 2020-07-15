@@ -142,7 +142,7 @@ class BSTNode:
     
     def bft_print(self, node):
         found = Queue(node)
-        while found.size > 0:
+        while len(found) > 0:
             this_node = found.dequeue()
             print(this_node.value)
             if this_node.left:
@@ -154,7 +154,7 @@ class BSTNode:
     # in an iterative depth first traversal
     def dft_print(self, node):
         found = Stack(node)
-        while found.size > 0:
+        while len(found) > 0:
             this_node = found.pop()
             print(this_node.value)
             if this_node.left:
@@ -164,11 +164,20 @@ class BSTNode:
 
     # Stretch Goals -------------------------
     # Note: Research may be required
+    def rec_dft(self, node, pre=True):
+        if pre:
+            print(node.value)
+        if node.left:
+            self.rec_dft(node.left, pre)
+        if node.right:
+            self.rec_dft(node.right, pre)
+        if not pre:
+            print(node.value)
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        self.rec_dft(node)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        self.rec_dft(node, False)

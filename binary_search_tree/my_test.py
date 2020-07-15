@@ -15,4 +15,6 @@ bst.insert(2)
 
 # bst.in_order_print(bst)
 # bst.bft_print(bst)
-bst.dft_print(bst)
+# bst.dft_print(bst)
+# bst.pre_order_dft(bst)
+bst.post_order_dft(bst)
