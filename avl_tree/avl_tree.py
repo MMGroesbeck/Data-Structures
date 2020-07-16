@@ -37,6 +37,12 @@ class AVLTree:
             if self.node.right != None:
                 self.node.right.display(level + 1, '>')
 
+    def _compare(self, x, y):
+        if isinstance(x, str):
+            x = ord(x)
+        if isinstance(y,str):
+            y = ord(y)
+        return x < y
     """
     Computes the maximum number of levels there are
     in the tree
@@ -114,13 +120,44 @@ class AVLTree:
     tree is balanced such that the balance factor is
     1 or -1
     """
+    def _swap_keys(self, left=True):
+        x = self.node.key
+        if left:
+            y = self.node.left.node
+        else:
+            y = self.node.right.node
+        self.node.key = y.key
+        y.key = x
+        
+    
+    def _arrange(self):
+        if self.node.left:
+            self.node.left._arrange()
+            # if self.node.key < self.node.left.node.key:
+            #     self._swap_keys(True)
+            if self._compare(self.node.key, self.node.left.node.key):
+                self._swap_keys(True)
+        if self.node.right:
+            self.node.right._arrange()
+            if self._compare(self.node.right.node.key, self.node.key):
+                self._swap_keys(False)
+            # if self.node.key > self.node.right.node.key:
+            #     self._swap_keys(False)
+
     def rebalance(self):
+        self._arrange()
         self.update_height()
         self.update_balance()
         while self.balance < -1:
+            print("a: ", self.balance)
             self.left_rotate()
+            print("b: ", self.balance)
         while self.balance > 1:
+            print("c: ", self.balance)
+            self.display()
             self.right_rotate()
+            print("d: ", self.balance)
+            self.display()
         if self.node.left:
             self.node.left.rebalance()
         if self.node.right:
@@ -131,13 +168,6 @@ class AVLTree:
     after the value is inserted, we need to check to see
     if we need to rebalance
     """
-    def _compare(self, x, y):
-        if isinstance(x, str):
-            x = ord(x)
-        if isinstance(y,str):
-            y = ord(y)
-        return x < y
-    
     def _unbal_insert(self, key):
         if self.node == None:
             self.node = Node(key)

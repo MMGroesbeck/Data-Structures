@@ -71,9 +71,11 @@ class AVLTreeTests(unittest.TestCase):
     self.tree.node.left.node.left = AVLTree(Node('c'))
     self.tree.node.left.node.right.node.left = AVLTree(Node('y'))
     self.tree.node.left.node.right.node.right = AVLTree(Node('z'))
-
+    print("Pre: ")
+    self.tree.display()
     self.tree.rebalance()
-
+    print("Post: ")
+    self.tree.display()
     self.assertEqual(self.tree.node.key, 4)
     self.assertEqual(self.tree.node.left.node.key, 3)
     self.assertEqual(self.tree.node.right.node.key, 5)
@@ -88,8 +90,9 @@ class AVLTreeTests(unittest.TestCase):
 
     self.tree.insert(3)
     self.assertEqual(self.tree.node.left.node.key, 3)
-
+    # self.tree.display()
     self.tree.insert(6)
+    # self.tree.display()
     self.assertEqual(self.tree.node.right.node.key, 6)
 
     self.tree.insert(7)
