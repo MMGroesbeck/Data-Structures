@@ -41,22 +41,19 @@ class AVLTree:
     Computes the maximum number of levels there are
     in the tree
     """
-    def _lvls_below(self):
-        if not self.node:
-            return -1
-        else:
-            lefty = -1
-            righty = -1
-            if self.node.left:
-                # print(f"left of {self.node.key}")
-                lefty = self.node.left._lvls_below()
-            if self.node.right:
-                # print(f"right of {self.node.key}")
-                righty = self.node.right._lvls_below()
-            return 1 + max(lefty, righty)
     
     def update_height(self):
-        self.height = self._lvls_below()
+        if not self.node:
+            self.height = -1
+        left = -1
+        right = -1
+        if self.node.left:
+            self.node.left.update_height()
+            left = self.node.left.height
+        if self.node.right:
+            self.node.right.update_height()
+            right = self.node.right.height
+        self.height = 1 + max(left, right)
 
     """
     Updates the balance factor on the AVLTree class
@@ -86,6 +83,8 @@ class AVLTree:
         if self.node.left:
             x.right = self.node.left
         self.node.left = AVLTree(x)
+        # self.update_balance()
+        # self.update_height()
 
 
     """
@@ -102,6 +101,8 @@ class AVLTree:
         if self.node.right:
             x.left = self.node.right
         self.node.right = AVLTree(x)
+        # self.update_balance()
+        # self.update_height()
 
     """
     Sets in motion the rebalancing logic to ensure the
@@ -109,16 +110,13 @@ class AVLTree:
     1 or -1
     """
     def rebalance(self):
+        self.update_height()
         self.update_balance()
         while self.balance < -1:
-            self.update_height()
-            self.update_balance()
             self.left_rotate()
             self.update_height()
             self.update_balance()
         while self.balance > 1:
-            self.update_height()
-            self.update_balance()
             self.right_rotate()
             self.update_height()
             self.update_balance

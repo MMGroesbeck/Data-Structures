@@ -24,13 +24,19 @@ tree.rebalance()
 
 tree.display()
 
-tree.left_rotate()
+# tree.left_rotate()
 
 tree.right_rotate()
 
 tree.display()
 
-# tree.right_rotate()
+# tree.right_rotate() #ENDLESS LOOP
+
+tree.rebalance()
+
+tree.display()
+
+# tree.left_rotate() #ENDLESS LOOP
 
 # tree.display()
 
