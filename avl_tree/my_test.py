@@ -24,10 +24,16 @@ tree.rebalance()
 
 tree.display()
 
+tree.left_rotate()
+
 tree.right_rotate()
 
 tree.display()
 
-tree.left_rotate()
+# tree.right_rotate()
 
-tree.display()
+# tree.display()
+
+# tree.rebalance()
+
+# tree.display()

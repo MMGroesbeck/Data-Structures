@@ -45,15 +45,15 @@ class AVLTree:
         if not self.node:
             return -1
         else:
-            left = -1
-            right = -1
+            lefty = -1
+            righty = -1
             if self.node.left:
                 # print(f"left of {self.node.key}")
-                left = self.node.left._lvls_below()
+                lefty = self.node.left._lvls_below()
             if self.node.right:
                 # print(f"right of {self.node.key}")
-                right = self.node.right._lvls_below()
-            return 1 + max(left, right)
+                righty = self.node.right._lvls_below()
+            return 1 + max(lefty, righty)
     
     def update_height(self):
         self.height = self._lvls_below()
