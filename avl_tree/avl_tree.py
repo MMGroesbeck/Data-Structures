@@ -77,7 +77,8 @@ class AVLTree:
         if self.node == None or self.node.right == None:
             return
         x = self.node
-        self = self.node.right
+        y = self.node.right
+        self = y
         if self.node.left:
             x.right = self.node.left
         self.node.left = AVLTree(x)
@@ -92,7 +93,8 @@ class AVLTree:
         if self.node == None or self.node.left == None:
             return
         x = self.node
-        self = self.node.left
+        y = self.node.left
+        self = y
         if self.node.right:
             x.left = self.node.right
         self.node.right = AVLTree(x)
@@ -105,9 +107,13 @@ class AVLTree:
     def rebalance(self):
         self.update_balance()
         while self.balance < -1:
+            self.update_height()
+            self.update_balance()
             self.left_rotate()
             self.update_balance()
         while self.balance > 1:
+            self.update_height()
+            self.update_balance()
             self.right_rotate()
             self.update_balance
         if self.node.left:
