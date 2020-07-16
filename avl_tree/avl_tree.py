@@ -1,3 +1,5 @@
+import copy
+
 """
 Node class to keep track of
 the data internal to individual nodes
@@ -46,10 +48,10 @@ class AVLTree:
             left = -1
             right = -1
             if self.node.left:
-                print("Left of ", self.node.key)
+                # print(f"left of {self.node.key}")
                 left = self.node.left._lvls_below()
             if self.node.right:
-                print("Right of ", self.node.key)
+                # print(f"right of {self.node.key}")
                 right = self.node.right._lvls_below()
             return 1 + max(left, right)
     
@@ -63,9 +65,11 @@ class AVLTree:
         left = -1
         right = -1
         if self.node.left:
-            left = self.node.left._lvls_below()
+            self.node.left.update_height()
+            left = self.node.left.height
         if self.node.right:
-            right = self.node.right._lvls_below()
+            self.node.right.update_height()
+            right = self.node.right.height
         self.balance = left - right
 
     """
@@ -78,7 +82,7 @@ class AVLTree:
             return
         x = self.node
         y = self.node.right
-        self = y
+        self.node = y.node
         if self.node.left:
             x.right = self.node.left
         self.node.left = AVLTree(x)
@@ -94,7 +98,7 @@ class AVLTree:
             return
         x = self.node
         y = self.node.left
-        self = y
+        self.node = y.node
         if self.node.right:
             x.left = self.node.right
         self.node.right = AVLTree(x)
@@ -110,11 +114,13 @@ class AVLTree:
             self.update_height()
             self.update_balance()
             self.left_rotate()
+            self.update_height()
             self.update_balance()
         while self.balance > 1:
             self.update_height()
             self.update_balance()
             self.right_rotate()
+            self.update_height()
             self.update_balance
         if self.node.left:
             self.node.left.rebalance()
