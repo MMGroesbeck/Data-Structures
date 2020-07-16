@@ -12,34 +12,20 @@ tree.insert(1)
 
 tree.insert(3)
 
-# tree.display()
+tree.display()
 
-tree._unbal_insert("b")
+tree.insert("b")
 
-tree.right_rotate()
+tree.display()
 
-# tree.display()
+tree.left_rotate()
+
+tree.display()
+
+tree.left_rotate()
+
+tree.display()
 
 tree.rebalance()
 
 tree.display()
-
-# tree.left_rotate()
-
-tree.right_rotate()
-
-tree.display()
-
-# tree.right_rotate() #ENDLESS LOOP
-
-tree.rebalance()
-
-tree.display()
-
-# tree.left_rotate() #ENDLESS LOOP
-
-# tree.display()
-
-# tree.rebalance()
-
-# tree.display()
